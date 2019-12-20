@@ -1,4 +1,5 @@
 # Web-App-Demo-Panorama
+<li>Built with Opencv + Python + Flask
 <li>This web app contains an implementation of multiple image stitching
 <li>For more detailed information ->>> https://github.com/koyomin9zx/Panorama
 
