@@ -16,8 +16,9 @@
 <li>Flask-WTF
 
 ### To run :
-$ git clone https://github.com/koyomin9zx/Web-App-Demo-Panorama
-$ python app.py
+    $ git clone https://github.com/koyomin9zx/Web-App-Demo-Panorama
+
+    $ python app.py
 
 Then go to http://127.0.0.1:5000 with your favourite browser.
 
