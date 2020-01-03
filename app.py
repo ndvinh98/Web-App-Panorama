@@ -1,8 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect
 from flask_dropzone import Dropzone
-from stitch import multiStitching
-from utils import loadImages
+from stitch import multiStitching,loadImages
 import cv2
 import glob
 import timeit

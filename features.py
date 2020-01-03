@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def findAndDescribeFeatures(image,opt='SURF'):
+def findAndDescribeFeatures(image,opt='ORB'):
 	'''find and describe features of @image,
 	if opt='SURF', SURF algorithm is used.
 	if opt='SIFT', SIFT algorithm is used.
@@ -53,7 +53,7 @@ def matchFeatures(featuresA, featuresB,ratio=0.75,opt='FB'):
 	else:
 		raise Exception("Not enought matches, Try to swich slow method or change another image set") 
 
-def generateHomography(src_img, dst_img, ransacRep=5.0, option="SURF",ratio=0.75):
+def generateHomography(src_img, dst_img, ransacRep=5.0, option="ORB",ratio=0.75):
 	'''@Return Homography matrix, @param src_img is the image which is warped by homography,
 	@param dst_img is the image which is choosing as pivot, @param ratio is the David Lowe’s ratio,
 	@param ransacRep is the maximum pixel “wiggle room” allowed by the RANSAC algorithm
@@ -71,7 +71,6 @@ def generateHomography(src_img, dst_img, ransacRep=5.0, option="SURF",ratio=0.75
 	matchesMask = mask.ravel().tolist()
 	return H,matchesMask
 	
-
 def drawKeypoints(img,kp):
 	img1=img
 	cv2.drawKeypoints(img,kp,img1,flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
