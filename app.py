@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect
 from flask_dropzone import Dropzone
-from stitch import multiStitching,loadImages
+from stitch import multiStitching,loadImages,opencvStitching
 import cv2
 import glob
 import timeit
@@ -15,7 +15,7 @@ app.config.update(
     # Flask-Dropzone config:
     DROPZONE_ALLOWED_FILE_TYPE='image',
     DROPZONE_MAX_FILE_SIZE=10,
-    DROPZONE_MAX_FILES=30,
+    DROPZONE_MAX_FILES=100,
     DROPZONE_IN_FORM=True,
     DROPZONE_UPLOAD_ON_CLICK=True,
     DROPZONE_UPLOAD_ACTION='handle_upload',
@@ -39,24 +39,24 @@ def handle_upload():
 @app.route('/form', methods=['POST'])
 def handle_form():
     start = timeit.default_timer()
-    resize = request.form.get('resize')
+    opt = request.form.get('opt')
+    resize=request.form.get('resize')
     print(resize)
-    if resize=='0':
-       list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=0)
-       for k in glob.glob(os.path.join(app.config['UPLOADED_PATH']+'/*.*')):
-            os.remove(k)
-       panorama=multiStitching(list_images,option='SURF',ratio=0.75)
     if resize=='1':
-       list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=0)
-       for k in glob.glob(os.path.join(app.config['UPLOADED_PATH']+'/*.*')):
+         list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=1)
+    else:
+        list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=0)
+    
+    for k in glob.glob(os.path.join(app.config['UPLOADED_PATH']+'/*.*')):
             os.remove(k)
+    crop=True
+    if opt=='0':   
+       panorama=multiStitching(list_images,option='SURF',ratio=0.75)
+    if opt=='1':
        panorama=multiStitching(list_images,option='ORB',ratio=0.75)
-    if resize=='2':
-        list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=1)
-        for k in glob.glob(os.path.join(app.config['UPLOADED_PATH']+'/*.*')):
-            os.remove(k)
-        panorama=multiStitching(list_images,option='SURF',ratio=0.75)
-    #list_images=loadImages(os.path.join(app.config['UPLOADED_PATH']),resize=1)
+    if opt=='2':
+        #panorama=multiStitching(list_images,option='SIFT',ratio=0.75)
+        panorama=opencvStitching(list_images)
     
     
     cv2.imwrite('static/panorama.jpg',panorama)

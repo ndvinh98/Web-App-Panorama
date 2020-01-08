@@ -38,7 +38,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">Github</a>
+            <a class="nav-link js-scroll-trigger" href="https://github.com/koyomin9zx/Panorama">Github</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#projects">Report</a>
@@ -56,10 +56,14 @@
         <form action="{{ url_for('handle_form') }}" enctype="multipart/form-data" method="post">
             {{ dropzone.create() }}
             <div class="text-primary">
-                <input type="radio" name="resize" value="0"> Slow(SURF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="resize" value="1" checked> Fast(ORB)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="resize" value="2"> optional(SURF+Resize)<br><br>
+                <input type="radio" name="opt" value="0"> Slow(SURF)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="opt" value="1" checked> Fast(ORB)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="opt" value="2"> cv2.createStitcher<br><br>
             </div>
+
+           <div class="text-primary">
+                <input type="checkbox" name="resize" value="1"> Rezize Images<br><br>
+           </div>
             <input type="submit" id="submit" class="btn btn-primary js-scroll-trigger" value="Create Panorama">
         </form>
         {{ dropzone.load_js() }}
