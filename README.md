@@ -6,7 +6,7 @@
 
 ### Requirement
 <li>python 3.7.1 
-<li>python 3.4.2
+<li>opencv 3.4.2
 
 
 ### You will need to install some package:
